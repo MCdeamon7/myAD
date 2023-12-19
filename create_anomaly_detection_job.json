@@ -1,0 +1,30 @@
+# create_anomaly_detection_job.json
+
+PUT _ml/anomaly_detectors/my_anomaly_detection_job
+{
+  "description": "Anomaly detection job",
+  "analysis_config": {
+    "bucket_span": 15,
+    "detectors": [
+      {
+        "detector_description": "Anomaly Detection for 'cpu' field",
+        "function": "high_count",
+        "field_name": "cpu",
+        "by_field_name": "host",
+        "over_field_name": "timestamp",
+        "partition_field_name": "host",
+        "detector_rules": [
+          {
+            "rule_description": "High CPU usage is anomalous",
+            "operator": "gt",
+            "value": 90
+          }
+        ]
+      }
+    ]
+  },
+  "data_description": {
+    "time_field": "timestamp",
+    "time_format": "epoch_ms"
+  }
+}

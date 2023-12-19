@@ -1,0 +1,20 @@
+# anomaly_detection_pipeline.json
+
+PUT _ingest/pipeline/anomaly_detection_pipeline
+{
+  "processors": [
+    {
+      "script": {
+        "source": """
+          def predict(data):
+            # Invoca il tuo servizio di inferenza
+            # Restituisci le predizioni
+            return predictions
+
+          ctx.predictions = predict(ctx.payload.data);
+        """,
+        "lang": "painless"
+      }
+    }
+  ]
+}
